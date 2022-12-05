@@ -20,4 +20,4 @@ with open('input', 'r') as f:
         stacks[target_stack - 1].extend(stacks[source_stack - 1][:- amount - 1:- 1]) 
         stacks[source_stack - 1] = stacks[source_stack - 1][:- amount]
         
-print(f'The code is "{str().join([stack.pop() for stack in stacks])}".')
+print(f'The code is "{str().join([stack[- 1] for stack in stacks])}".')
