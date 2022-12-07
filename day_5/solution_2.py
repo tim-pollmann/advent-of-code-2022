@@ -1,22 +1,16 @@
-from typing import List
 import re
 
-
-stacks: List[List[str]] = [
-    ['S', 'T', 'H', 'F', 'W', 'R'],
-    ['S', 'G', 'D', 'Q', 'W'],
-    ['B', 'T', 'W'],
-    ['D', 'R', 'W', 'T', 'N', 'Q', 'Z', 'J'],
-    ['F', 'B', 'H', 'G', 'L', 'V', 'T', 'Z'],
-    ['L', 'P', 'T', 'C', 'V', 'B', 'S', 'G'],
-    ['Z', 'B', 'R', 'T', 'W', 'G', 'P'],
-    ['N', 'G', 'M', 'T', 'C', 'J', 'R'],
-    ['L', 'G', 'B', 'W']
-]
-
 with open('input', 'r') as f:
-    while line := f.readline():
-        amount, source_stack, target_stack = [int(i) for i in re.findall(r'\d+', line)]
+    config, operations = [part.splitlines() for part in f.read().split('\n\n')]
+    stacks = [[] for _ in range(int(config[-1][-2]))]
+
+    for line in config[-2::-1]:
+        for stack_idx in range(len(stacks)):
+            if (crate := line[stack_idx * 4 + 1]) != ' ':
+                stacks[stack_idx].append(crate)
+
+    for operation in operations:
+        amount, source_stack, target_stack = [int(i) for i in re.findall(r'\d+', operation)]
         stacks[target_stack - 1].extend(stacks[source_stack - 1][- amount:]) 
         stacks[source_stack - 1] = stacks[source_stack - 1][:- amount]
         
