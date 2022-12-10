@@ -11,7 +11,7 @@ with open('input', 'r') as f:
 
     for operation in operations:
         amount, source_stack, target_stack = [int(i) for i in re.findall(r'\d+', operation)]
-        stacks[target_stack - 1].extend(stacks[source_stack - 1][- amount:]) 
+        stacks[target_stack - 1].extend(stacks[source_stack - 1][- amount:])
         stacks[source_stack - 1] = stacks[source_stack - 1][:- amount]
-        
+
 print(f'The code is "{str().join([stack[- 1] for stack in stacks])}".')
